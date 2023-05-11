@@ -2,6 +2,7 @@ package com.codingdojo.demo.servicios;
 
 import org.springframework.stereotype.Service;
 
+import com.codingdojo.demo.modelos.Persona;
 import com.codingdojo.demo.repositorios.RepoLicencia;
 import com.codingdojo.demo.repositorios.RepoPersona;
 
@@ -12,5 +13,9 @@ public class ServicioLicencias {
 	public ServicioLicencias(RepoPersona rPersona, RepoLicencia rLicencia) {
 		this.repoPersona = rPersona;
 		this.repoLicencia = rLicencia;
+	}
+	
+	public Persona guardarPersona(Persona persona) {
+		return repoPersona.save(persona);
 	}
 }
