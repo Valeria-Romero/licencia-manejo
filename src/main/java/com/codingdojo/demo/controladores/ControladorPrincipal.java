@@ -1,13 +1,17 @@
 package com.codingdojo.demo.controladores;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.codingdojo.demo.modelos.Licencia;
 import com.codingdojo.demo.modelos.Persona;
 import com.codingdojo.demo.servicios.ServicioLicencias;
 
@@ -35,5 +39,12 @@ public class ControladorPrincipal {
 		}
 		servicio.guardarPersona(persona);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/licencia")
+	public String nuevaLicencia(@ModelAttribute("licencia")Licencia licencia, Model model) {
+		List<Persona> sinLicencia = servicio.sinLicencia();
+		model.addAttribute("persona", sinLicencia);
+		return "nuevaLicencia.jsp";
 	}
 }

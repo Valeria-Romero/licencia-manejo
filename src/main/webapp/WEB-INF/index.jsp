@@ -7,6 +7,8 @@
 <title>Licencia de manejo</title>
 </head>
 <body>
-	<h1>Hola mundo</h1>
+	<h1>Bienvenidos a licencias</h1>
+	<a href="/licencia">Nueva licencia</a>
+	<a href="/nueva">Nueva persona</a>
 </body>
 </html>
