@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.codingdojo.demo.modelos.Licencia;
@@ -23,7 +24,9 @@ public class ControladorPrincipal {
 	}
 	
 	@GetMapping("/")
-	public String Index() {
+	public String Index(Model model) {
+		List<Persona> personas = servicio.todasPersonas();
+		model.addAttribute("personas",personas);
 		return "index.jsp";
 	}
 	
@@ -47,4 +50,19 @@ public class ControladorPrincipal {
 		model.addAttribute("persona", sinLicencia);
 		return "nuevaLicencia.jsp";
 	}
+	
+	@PostMapping("/licencia")
+	public String guardarLicencia(@Valid @ModelAttribute("licencia")Licencia licencia, BindingResult result) {
+		if(result.hasErrors())
+			return "nuevaLicencia.jsp";
+		servicio.crearLicencia(licencia);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/informacion/{id}")
+	public String ShowPerson(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("persona", servicio.obtenerPersona(id));
+		return "informacion.jsp";
+	}
+	
 }

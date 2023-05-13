@@ -1,5 +1,6 @@
 package com.codingdojo.demo.modelos;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,6 +40,19 @@ public class Licencia {
 	
 	public Licencia() {
 		
+	}
+	
+	public String formatoNumeroLicencia() {
+		int numCeros = 7 - String.valueOf(this.numero).length();
+		StringBuilder nuevoNumero = new StringBuilder();
+		for(int i = 0; i < numCeros; i++)
+			nuevoNumero.append('0');
+		return String.format("%s%d", nuevoNumero, this.numero);
+	}
+	
+	public String formatoFechaExpiracion() {
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("MM/dd/yyyy");
+		return formatoFecha.format(fechaExpiracion);
 	}
 
 	public Long getId() {
@@ -95,5 +111,12 @@ public class Licencia {
 		this.persona = persona;
 	}
 	
-	
+	@PrePersist
+	protected void onCreado() {
+		this.creado = new Date();
+	}
+	@PostPersist
+	protected void onActualizado() {
+		this.actualizado = new Date();
+	}
 }

@@ -39,4 +39,12 @@ public class ServicioLicencias {
 		licencia.setNumero(this.generarNumeroLicencia());
 		return repoLicencia.save(licencia);
 	}
+	
+	public List<Persona> todasPersonas(){
+		return repoPersona.findAll();
+	}
+	
+	public Persona obtenerPersona(Long id) {
+		return repoPersona.findById(id).orElse(null);
+	}
 }
