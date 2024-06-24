@@ -60,8 +60,8 @@ public class ControladorPrincipal {
 	}
 	
 	@GetMapping("/informacion/{id}")
-	public String ShowPerson(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("persona", servicio.obtenerPersona(id));
+	public String ShowPerson(@PathVariable("id") Long identificador, Model model) {
+		model.addAttribute("persona", servicio.obtenerPersona(identificador));
 		return "informacion.jsp";
 	}
 	
